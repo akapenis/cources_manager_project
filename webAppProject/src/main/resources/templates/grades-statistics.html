@@ -1,0 +1,49 @@
+<html xmlns = "http://www.thymeleaf.org">
+
+	<head>
+	
+		<title>Add Courses</title>
+		<link rel="stylesheet" 
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+			crossorigin="anonymous">
+	
+	</head>
+	
+	<body>
+	
+		<div class = "container">
+			
+			<legend><b>Descriptive Statistics for </b>  <span th:text="${course.name}"></span></legend>
+			<hr/>
+			
+					<tr th:each="DescriptiveStatistics: ${DescriptiveStatistics}">
+					
+						<legend><b>Minimum:</b>  <span th:text="${DescriptiveStatistics.min}"></span></legend>
+						<legend><b>Maximum:</b>  <span th:text="${DescriptiveStatistics.max}"></span></legend>
+						<legend><b>Mean:</b>  <span th:text="${DescriptiveStatistics.mean}"></span></legend>
+						<legend><b>St.Deviation:</b>  <span th:text="${DescriptiveStatistics.standardDeviation}"></span></legend>
+						<legend><b>Variance:</b>  <span th:text="${DescriptiveStatistics.variance}"></span></legend>
+						<legend><b>Skewness:</b>  <span th:text="${DescriptiveStatistics.skewness}"></span></legend>
+						<legend><b>Kurtosis:</b>  <span th:text="${DescriptiveStatistics.kurtosis}"></span></legend>
+						<legend><b>Median:</b>  <span th:text="${DescriptiveStatistics.getPercentile(50)}"></span></legend>
+						<hr/>
+						<legend><b>99th Percentile:</b>  <span th:text="${DescriptiveStatistics.getPercentile(99)}"></span></legend>
+						<legend><b>95th Percentile:</b>  <span th:text="${DescriptiveStatistics.getPercentile(95)}"></span></legend>
+						<legend><b>90th Percentile:</b>  <span th:text="${DescriptiveStatistics.getPercentile(90)}"></span></legend>
+						<legend><b>75th Percentile:</b>  <span th:text="${DescriptiveStatistics.getPercentile(75)}"></span></legend>
+						<legend><b>25th Percentile:</b>  <span th:text="${DescriptiveStatistics.getPercentile(25)}"></span></legend>
+						<legend><b>10th Percentile:</b>  <span th:text="${DescriptiveStatistics.getPercentile(10)}"></span></legend>
+
+					</tr>
+					
+			<hr/>
+			<a th:href="@{'/course/' + ${course.name} + '/students'(courseId=${course.id})}">Back to Students</a>
+			<hr/>
+			<a th:href="@{/}">Back to Courses</a>
+			
+		</div>
+		
+	</body>
+
+</html>

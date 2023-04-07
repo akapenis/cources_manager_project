@@ -1,0 +1,75 @@
+<html xmlns = "http://www.thymeleaf.org">
+
+	<head>
+	
+		<title>Add Students</title>
+		<link rel="stylesheet" 
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+			crossorigin="anonymous">
+	
+	</head>
+	
+	<body>
+	
+		<div class = "container">
+		
+			<hr/>
+			<legend><b>CourseID:</b>  <span th:text="${course.id}"></span></legend>
+			<legend><b>Add Student to   <span th:text="${course.name}"></span></b></legend>
+			
+			<form th:action="@{/saveStudent(courseId=${course.id})}" th:object="${student}" method="POST" class = "container">
+				
+				<div>
+					<b><label>First name:</label></b>
+					<input type="text" th:field="*{first}" placeholder="Enter first name" class="form-control col-4 mb-4" minlength="2" maxlength="20" required />
+						<span th:if="${#fields.hasErrors('first')}" th:errors="*{first}"></span>First Name must be between 2 and 
+						20 characters.
+					</p>
+				</div>
+				
+				<div>
+					<b><label>Last name:</label></b>
+					<input type="text" th:field="*{last}" placeholder="Enter last name" class="form-control col-4 mb-4" minlength="2" maxlength="20" required />
+						<span th:if="${#fields.hasErrors('last')}" th:errors="*{last}"></span>Last Name must be between 2 and 
+						20 characters.
+					</p>
+				</div>
+				
+				<div>
+					<b><label>Year of Registration:</label></b>
+					<input type="number" min="1993" max="2021" th:field="*{year}" placeholder="Enter year of registration" class="form-control col-4 mb-4"  />
+						<span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>Range : 1993 - 2021
+					</p>
+				</div>
+				
+				<div>
+					<b><label>Semester:</label></b>
+					<input type="number" min="1" th:field="*{semester}" placeholder="Enter semester" class="form-control col-4 mb-4"  />
+						<span th:if="${#fields.hasErrors('semester')}" th:errors="*{semester}"></span>Minimum semesters : 1
+					</p>
+				</div>
+				
+				<button class="btn btn-primary" type="submit">Save</button>
+				
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{project}" />
+				<input type="hidden" th:field="*{exam}" />
+				<input type="hidden" th:field="*{grade}" />
+				
+			</form>
+			
+			<hr/>
+			<a th:href="@{'/course/' + ${course.name} + '/students'(courseId=${course.id})}">Back to Students</a>
+			<hr/>
+			<a th:href="@{/}">Back to Courses</a>
+			
+		</div>
+		
+	</body>
+
+</html>
+		
+	</body>
+
+</html>

@@ -1,0 +1,63 @@
+<html xmlns = "http://www.thymeleaf.org">
+
+	<head>
+	
+		<title>Add Students Grades</title>
+		<link rel="stylesheet" 
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+			crossorigin="anonymous">
+	
+	</head>
+	
+	<body>
+	
+		<div class = "container">
+		
+			<hr/>
+			
+			<div>
+				<p>ID:<span th:text="${student.id}"></span></p>
+				<p>Name:<span th:text="${student.first}"></span></p>
+				<p>Surname:<span th:text="${student.last}"></span></p>
+				<p>Year:<span th:text="${student.year}"></span></p>
+				<p>Semester:<span th:text="${student.semester}"></span></p>
+				
+			</div>
+			
+			<form th:action="@{/saveStudentGrades(courseId=${course.id})}" th:object="${student}" method="POST" class = "container">
+				
+				<div>
+					<p>Project Grade:
+					<input type="number" step="any" min=0 max=10 th:field="*{project}" placeholder="Enter project grade" class="form-control col-4 mb-4" />
+						<p th:if="${#fields.hasErrors('project')}" th:errors="*{project}">Insert number between 0-10.</p>
+					</p>
+				</div>
+				
+				<div>
+					<p>Exam Grade:
+					<input type="number" step="any" min=0 max=10 th:field="*{exam}" placeholder="Enter exam grade" class="form-control col-4 mb-4" />
+						<p th:if="${#fields.hasErrors('exam')}" th:errors="*{exam}">Insert number between 0-10.</p>
+					</p>
+				</div>
+				
+				<button class="btn btn-primary" type="submit">Save</button>
+				
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{first}" />
+				<input type="hidden" th:field="*{last}" />
+				<input type="hidden" th:field="*{year}" />
+				<input type="hidden" th:field="*{semester}" />
+				
+			</form>
+			
+			<hr/>
+			<a th:href="@{'/course/' + ${course.name} + '/students'(courseId=${course.id})}">Back to Students</a>
+			<hr/>
+			<a th:href="@{/}">Back to Courses</a>
+			
+		</div>
+		
+	</body>
+
+</html>

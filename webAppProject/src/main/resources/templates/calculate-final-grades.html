@@ -1,0 +1,78 @@
+<html xmlns = "http://www.thymeleaf.org">
+
+	<head>
+	
+		<title>Add Students Grades</title>
+		<link rel="stylesheet" 
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+			crossorigin="anonymous">
+	
+	</head>
+	
+	<body>
+	
+		<div class = "container">
+		
+			<hr/>
+			
+			<div>
+				<legend><b>ID:</b>  <span th:text="${course.id}"></span></legend>
+				<legend><b>Name:</b>  <span th:text="${course.name}"></span></legend>
+				<legend><b>Year:</b>  <span th:text="${course.year}"></span></legend>
+				<legend><b>Semester:</b>  <span th:text="${course.semester}"></span></legend>
+				<legend><b>Syllabus:</b>  <span th:text="${course.syllabus}"></span></legend>
+				
+			</div>
+			
+			<form th:action="@{/saveGrades(courseId=${course.id})}" th:object="${course}" method="POST" class = "container">
+		
+				<div>
+					<b><label>Minimum Project Grade:</label></b>
+					<input type="number" min="0" max="10"  th:field="*{minproj}" placeholder="Enter Minimum Project Grade" class="form-control col-4 mb-4" required />
+						<p><span th:if="${#fields.hasErrors('minproj')}" th:errors="*{minproj}"></span>Insert number between 0-10.</p>
+					</p>
+				</div>
+				
+				<div>
+					<b><label>Minimum Exam Grade:</label></b>
+					<input type="number" min="0" max="10"  th:field="*{minexam}" placeholder="Enter Minimum Exam Grade" class="form-control col-4 mb-4" required />
+						<p><span th:if="${#fields.hasErrors('minexam')}" th:errors="*{minexam}"></span>Enter number between 0-10.</p>
+					</p>
+				</div>
+				
+				<div>
+					<b><label>Project weight %:</label></b>
+					<input type="number" min="0" max="100"  th:field="*{wproject}" placeholder="Enter Project Grade Weight" class="form-control col-4 mb-4" required />
+						<p><span th:if="${#fields.hasErrors('wproject')}" th:errors="*{wproject}"></span>Enter number between 0-100.</p>
+					</p>
+				</div>
+
+				<div>
+					<b><label>Exam weight %:</label></b>
+					<input type="number" min="0" max="100"  th:field="*{wexam}"  placeholder="Enter Exam Grade Weight" class="form-control col-4 mb-4" required />
+						<p><span th:if="${#fields.hasErrors('wexam')}" th:errors="*{wexam}"></span>Enter number between 0-100.</p>
+					</p>
+				</div>
+				
+				<button class="btn btn-primary" type="submit">Save</button>
+				
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{name}" />
+				<input type="hidden" th:field="*{year}" />
+				<input type="hidden" th:field="*{semester}" />
+				<input type="hidden" th:field="*{syllabus}" />
+				<input type="hidden" th:field="*{user}" />
+				
+			</form>
+			
+			<hr/>
+			<a th:href="@{'/course/' + ${course.name} + '/students'(courseId=${course.id})}">Back to Students</a>
+			<hr/>
+			<a th:href="@{/}">Back to Courses</a>
+			
+		</div>
+		
+	</body>
+
+</html>
